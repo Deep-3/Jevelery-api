@@ -28,5 +28,5 @@ exports.exportToPDF = (res, data, templateName, filename) => {
         stream.pipe(res);
     });
 
-    //
+    
 };
