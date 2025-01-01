@@ -2,7 +2,10 @@ const {Sequelize}=require('sequelize');
 
 const sequelize=new Sequelize('jewelerys','root','Deep@0308',{
     host:'localhost',
-    dialect:'mysql'
+    dialect:'mysql', timezone: '+00:00', 
+    dialectOptions: {
+        timezone: 'Z', 
+    }
 });
 
 sequelize.sync({alter:true})

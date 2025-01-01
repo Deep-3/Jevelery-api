@@ -41,7 +41,7 @@ exports.createPurchase = async (purchaseData) => {
     //   console.log("Order Data to Insert:", orderData);
   
       await PurchaseOrder.bulkCreate(orderData);
-  
+     
       console.log("Orders Created Successfully");
       return purchase;
   

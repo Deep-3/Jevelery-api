@@ -16,6 +16,10 @@ exports.Ledger = sequelize.define('Ledger', {
       notEmpty: { msg: 'Name cannot be empty' },
     },
   },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   firm_name: {
     type: DataTypes.STRING,
     allowNull: false,

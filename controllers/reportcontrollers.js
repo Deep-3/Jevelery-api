@@ -8,6 +8,7 @@ const Purchase=require('../models/purchase');
 
 
 
+
 // 🚀 Utility Function for Pagination
 
 // 🚀 Purchase Reports
@@ -90,7 +91,7 @@ exports.getPurchasePdfReport = async (req, res) => {
             limit: parseInt(limit),
             offset: parseInt(offset)
         });
-    //    console.log("hello Deep",purchaseorders);
+       console.log("hello Deep",purchaseorders);
 
     const reportData = purchaseorders.rows.map(purchaseorders => ({
         client_name: purchaseorders.purchase.client.name,
@@ -102,10 +103,10 @@ exports.getPurchasePdfReport = async (req, res) => {
         amount: purchaseorders.amount,
     }));
 
-    return exportToPDF(res, reportData, 'purchase_report.hbs', 'purchase_report.pdf');
+    return exportToPDF(res, reportData, 'purchase_report.hbs', 'purchase_report.pdf',purchaseorders.rows[0].purchase.client.email);
 
         
-        res.json({ data: reportData });
+        res.json({ data: reportData});
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Failed to fetch purchase reports' });
@@ -127,7 +128,7 @@ exports.getSalesPdfReport = async (req, res) => {
         const  offset=(page-1)*limit;
 
         const whereClause = {};
-        if (client_id && purchase) whereClause.purchase_id = purchase.id;
+        if (client_id && sale) whereClause.sales_id = sale.id;
         if(!sale)
             return res.json({msg:'data not found'});
 
@@ -177,8 +178,8 @@ exports.getSalesCsvReport = async (req, res) => {
         const  offset=(page-1)*limit;
 
         const whereClause = {};
-        if (client_id && purchase) whereClause.purchase_id = purchase.id;
-        if(!purchase)
+        if (client_id && sale) whereClause.sales_id = sale.id;
+        if(!sale)
             return res.json({msg:'data not found'});
 
         if (date_from && date_to) {

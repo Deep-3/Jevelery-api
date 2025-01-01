@@ -1,13 +1,14 @@
 
 const purchaseservices=require('../services/purchaseservices');
+const bilservices=require('../services/bilservices');
+
 exports.createPurchase = async (req, res) => {
   try {
     
     const purchase = await purchaseservices.createPurchase(req.body);
       if(purchase=="not client present in a database")
       return res.status(400).json({ success: false, message:'client not present in a database' });
-  
-   return  res.status(201).json({ success: true, data: purchase });
+    const bilsend=await bilservices.getPurchaseBill(purchase.client_id,res)
   } catch (error) {
     res.status(400).json({ success: false, message: error.message });
   }

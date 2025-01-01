@@ -16,6 +16,14 @@ const Client = sequelize.define('Client', {
       notEmpty: { msg: 'Name cannot be empty' },
     },
   },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      notNull: { msg: 'email is required' },
+      notEmpty: { msg: 'email cannot be empty' },
+    },
+  },
   firm_name: {
     type: DataTypes.STRING,
     allowNull: false,

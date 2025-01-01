@@ -13,7 +13,7 @@ exports.exportToCSV = (res, data, filename) => {
     res.send(csv);
 };
 
-exports.exportToPDF = (res, data, templateName, filename) => {
+exports.exportToPDF = async(res, data, templateName, filename) => {
     console.log(__dirname);
     const templatePath = path.resolve(__dirname, `../templates/${templateName}`);
     console.log(templatePath);
@@ -21,12 +21,15 @@ exports.exportToPDF = (res, data, templateName, filename) => {
     const compiledTemplate = hbs.compile(templateHtml);
 
     const html = compiledTemplate({ data });
+   
+    
 
     pdf.create(html).toStream((err, stream) => {
         if (err) return res.status(500).send('Failed to generate PDF');
         res.attachment(filename);
         stream.pipe(res);
     });
+
 
     
 };

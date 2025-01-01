@@ -1,14 +1,15 @@
 
 const salesservices=require('../services/salesservices');
+const bilservices=require('../services/bilservices');
+
 exports.createSales = async (req, res) => {
   try {
     
     const sales = await salesservices.createSales(req.body);
       if(sales=="not client present in a database")
       return res.status(400).json({ success: false, message:'client not present in a database' });
-  
-   return  res.status(201).json({ success: true, data: sales });
-  } catch (error) {
+          const bilsend=await bilservices.getSaleBil(sales.client_id,res)
+        } catch (error) {
     res.status(400).json({ success: false, message: error.message });
   }
 };
