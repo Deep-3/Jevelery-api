@@ -8,7 +8,7 @@ const { Op } = require('sequelize');
 
 cron.schedule('59 23 * * *', async () => {
 
-    const today = new Date().toISOString().split('T')[0];
+    const today = new Date().toLocaleDateString();
 
     try {
         const totalSales = await Sales.sum('total_amount', {
